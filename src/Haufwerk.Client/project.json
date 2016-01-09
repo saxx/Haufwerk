@@ -5,6 +5,9 @@
   "tags": [ "" ],
   "projectUrl": "https://github.com/saxx/Haufwerk",
   "licenseUrl": "",
+  "iconUrl": "https://raw.githubusercontent.com/saxx/Haufwerk/master/src/Haufwerk/wwwroot/apple-icon.png",
+  "summary": "",
+  "copyright": "",
 
   "frameworks": {
     "dnx451": { }
