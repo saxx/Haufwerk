@@ -84,14 +84,14 @@ namespace Haufwerk.Controllers
         public async Task<IActionResult> TestDuplicate()
         {
             var haufwerk = GetHaufwerkForCurrentInstance();
-            await haufwerk.Post("Haufwerk Test", "This is just a test");
+            await haufwerk.Post("Haufwerk Test", "This is just a test", exception: null);
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> TestUnique()
         {
             var haufwerk = GetHaufwerkForCurrentInstance();
-            await haufwerk.Post("Haufwerk Test", "This is just a test (" + Guid.NewGuid() + ")");
+            await haufwerk.Post("Haufwerk Test", "This is just a test (" + Guid.NewGuid() + ")", exception: null);
             return RedirectToAction("Index");
         }
 

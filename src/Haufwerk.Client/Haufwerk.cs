@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,30 +22,42 @@ namespace Haufwerk.Client
             string stackTrace = null,
             string additionalInfo = null)
         {
-
-            var client = new HttpClient();
-
-            var content = new Dictionary<string, string>
+            try
             {
-                ["Source"] = source,
-                ["Message"] = message
-            };
+                var client = new HttpClient();
 
-            if (user != null)
-            {
-                content["User"] = user;
+                var content = new Dictionary<string, string>
+                {
+                    ["Source"] = source,
+                    ["Message"] = message
+                };
+
+                if (user != null)
+                {
+                    content["User"] = user;
+                }
+                if (user != null)
+                {
+                    content["StackTrace"] = stackTrace;
+                }
+                if (user != null)
+                {
+                    content["AdditionalInfo"] = additionalInfo;
+                }
+
+                var response = await client.PostAsync(_haufwerkInstanceUrl, new FormUrlEncodedContent(content));
+                response.EnsureSuccessStatusCode();
             }
-            if (user != null)
+            catch (Exception ex)
             {
-                content["StackTrace"] = stackTrace;
+                throw new HaufwerkException(ex);
             }
-            if (user != null)
-            {
-                content["AdditionalInfo"] = additionalInfo;
-            }
+        }
 
-            var response = await client.PostAsync(_haufwerkInstanceUrl, new FormUrlEncodedContent(content));
-            response.EnsureSuccessStatusCode();
+
+        public async Task Post(string source, string message, string user = null, Exception exception = null, string additionalInfo = null)
+        {
+            await Post(source, message, user, exception?.ToString(), additionalInfo);
         }
     }
 }
