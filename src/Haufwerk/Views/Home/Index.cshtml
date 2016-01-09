@@ -1,0 +1,96 @@
+﻿@model Haufwerk.ViewModels.Home.IndexViewModel
+
+@if (Model.Issues.Any())
+{
+    <table class="table table-hover table-stripped table-condensed">
+        <tr>
+            <th>Date (UTC)</th>
+            <th>Source</th>
+            <th>User</th>
+            <th>Count</th>
+            <th>Message</th>
+            <th>
+                <div class="pull-right">
+                    <input type="checkbox" id="showIgnored" /> <span class="glyphicon glyphicon-eye-open"></span>
+                </div>
+            </th>
+        </tr>
+
+        @foreach (var issue in Model.Issues)
+        {
+            <tr class="@(issue.Ignore ? "ignored" : "")" style="@(issue.Ignore ? "display:none;" : "")">
+                <td>
+                    <span class="label label-success">
+                        @issue.CreationDateTimeWithDuplicates
+                    </span>
+                </td>
+                <td>
+                    <span class="label label-info">
+                        @issue.Source
+                    </span>
+                </td>
+                <td>
+                    <span class="label label-warning">
+                        @issue.User
+                    </span>
+                </td>
+                <td>
+                    <span class="badge">
+                        @issue.CountWithDuplicates
+                    </span>
+                </td>
+                <td>
+                    <pre>@issue.Message</pre>
+                    @if (!string.IsNullOrEmpty(issue.StackTrace))
+                    {
+                        <pre>@issue.StackTrace</pre>
+                    }
+                    @if (!string.IsNullOrEmpty(issue.AdditionalInfo))
+                    {
+                        <pre>@issue.AdditionalInfo</pre>
+                    }
+                </td>
+                <td>
+                    <div class="pull-right">
+                        <a href="@Url.Action("Ignore", new {id = issue.Id})" title="Ignore" class="btn btn-default btn-xs">
+                            <span class="glyphicon @(issue.Ignore ? "glyphicon-eye-open" : "glyphicon-eye-close")"> </span>
+                        </a>
+                        <a href="@Url.Action("Delete", new {id = issue.Id})" title="Delete" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">No issues in database.</div>
+}
+
+@section scripts {
+    <script>
+        $(".glyphicon.glyphicon-trash").click(function () {
+            return confirm("Sure?");
+        });
+
+        var showIgnoredCheckbox = $("#showIgnored");
+        showIgnoredCheckbox.click(function () {
+            if (showIgnoredCheckbox.is(":checked")) {
+                $(".ignored").show();
+                window.localStorage["showIgnored"] = "true";
+            } else {
+                $(".ignored").hide();
+                window.localStorage["showIgnored"] = "false";
+            }
+        });
+
+        $(document).ready(function() {
+            showIgnoredCheckbox.val(false);
+            if (window.localStorage["showIgnored"] === "true") {
+                showIgnoredCheckbox.click();
+            }
+        });
+    </script>
+}

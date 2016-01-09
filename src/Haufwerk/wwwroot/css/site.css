@@ -1,0 +1,22 @@
+﻿body {
+    padding-top: 60px;
+}
+
+.container {
+    max-width: 100%;
+    width: 100%;
+}
+
+tr.ignored td {
+    opacity: 0.4;
+}
+
+td pre {
+    font-size: 12px;
+    padding: 3px 6px;
+}
+
+.btn-xs {
+    font-size: 12px;
+    padding: 3px 6px;
+}
