@@ -1,5 +1,6 @@
 {
   "version": "0.0.2",
+  "title": "Haufwerk Client",
   "description": "Client library to post errors/exceptions to an Haufwerk instance.",
   "authors": [ "Hannes 'saxx' Sachsenhofer" ],
   "tags": [ "" ],
