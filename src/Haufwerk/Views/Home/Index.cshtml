@@ -45,13 +45,13 @@
                 <td>
                     <pre class="message-title">@issue.Message</pre>
                     <div style="display: none;">
-                        @if (!string.IsNullOrEmpty(issue.StackTrace))
-                    {
-                            <pre>@issue.StackTrace</pre>
-                        }
                         @if (!string.IsNullOrEmpty(issue.AdditionalInfo))
-                    {
+                        {
                             <pre>@issue.AdditionalInfo</pre>
+                        }
+                        @if (!string.IsNullOrEmpty(issue.StackTrace))
+                        {
+                            <pre>@issue.StackTrace</pre>
                         }
                     </div>
                 </td>
