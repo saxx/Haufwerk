@@ -21,7 +21,7 @@
             <tr class="@(issue.Ignore ? "ignored" : "")" style="@(issue.Ignore ? "display:none;" : "")">
                 <td>
                     <span class="label label-success">
-                        @issue.CreationDateTimeWithDuplicates
+                        @issue.FormattedCreationDateTimeWithDuplicates
                     </span>
                 </td>
                 <td>
@@ -33,8 +33,8 @@
                     @if (!string.IsNullOrEmpty(issue.User))
                     {
                         <span class="label label-warning">
-                        @issue.User
-                    </span>
+                            @issue.User
+                        </span>
                     }
                 </td>
                 <td>
@@ -43,15 +43,17 @@
                     </span>
                 </td>
                 <td>
-                    <pre>@issue.Message</pre>
-                    @if (!string.IsNullOrEmpty(issue.StackTrace))
+                    <pre class="message-title">@issue.Message</pre>
+                    <div style="display: none;">
+                        @if (!string.IsNullOrEmpty(issue.StackTrace))
                     {
-                        <pre>@issue.StackTrace</pre>
-                    }
-                    @if (!string.IsNullOrEmpty(issue.AdditionalInfo))
+                            <pre>@issue.StackTrace</pre>
+                        }
+                        @if (!string.IsNullOrEmpty(issue.AdditionalInfo))
                     {
-                        <pre>@issue.AdditionalInfo</pre>
-                    }
+                            <pre>@issue.AdditionalInfo</pre>
+                        }
+                    </div>
                 </td>
                 <td>
                     <div class="pull-right">
@@ -89,11 +91,15 @@ else
             }
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             showIgnoredCheckbox.val(false);
             if (window.localStorage["showIgnored"] === "true") {
                 showIgnoredCheckbox.click();
             }
+        });
+
+        $(".message-title").click(function () {
+            $(this).siblings("div").toggle();
         });
     </script>
 }

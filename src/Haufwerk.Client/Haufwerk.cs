@@ -36,11 +36,11 @@ namespace Haufwerk.Client
                 {
                     content["User"] = user;
                 }
-                if (user != null)
+                if (stackTrace != null)
                 {
                     content["StackTrace"] = stackTrace;
                 }
-                if (user != null)
+                if (additionalInfo != null)
                 {
                     content["AdditionalInfo"] = additionalInfo;
                 }

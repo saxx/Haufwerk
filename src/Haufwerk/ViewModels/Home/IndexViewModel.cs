@@ -37,8 +37,31 @@ namespace Haufwerk.ViewModels.Home
                     Ignore = i.Issue.Ignore,
                     AdditionalInfo = i.Issue.AdditionalInfo,
                     Source = i.Issue.Source,
-                    User = i.Issue.User
+                    User = i.Issue.User,
+                    FormattedCreationDateTimeWithDuplicates = i.DuplicatesDate.ToString("dd-MMM, hh:mm:ss")
                 };
+
+                if (issue.CreationDateTimeWithDuplicates.Date == DateTime.UtcNow.Date)
+                {
+                    var differenceInSeconds = (DateTime.UtcNow - issue.CreationDateTimeWithDuplicates).TotalSeconds;
+                    if (differenceInSeconds < 10)
+                    {
+                        issue.FormattedCreationDateTimeWithDuplicates = "now";
+                    }
+                    else if (differenceInSeconds < 120)
+                    {
+                        issue.FormattedCreationDateTimeWithDuplicates = differenceInSeconds.ToString("####") + "s";
+                    }
+                    else if (differenceInSeconds < 60*120)
+                    {
+                        issue.FormattedCreationDateTimeWithDuplicates = (differenceInSeconds / 60).ToString("####") + "m";
+                    }
+                    else
+                    {
+                        issue.FormattedCreationDateTimeWithDuplicates = i.DuplicatesDate.ToString("hh:mm:ss");
+                    }
+                }
+
 
                 Issues.Add(issue);
             }
@@ -60,6 +83,7 @@ namespace Haufwerk.ViewModels.Home
             public bool Ignore { get; set; }
             public int CountWithDuplicates { get; set; }
             public DateTime CreationDateTimeWithDuplicates { get; set; }
+            public string FormattedCreationDateTimeWithDuplicates { get; set; }
         }
     }
 }
