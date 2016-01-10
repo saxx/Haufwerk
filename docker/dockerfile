@@ -1,18 +1,19 @@
 FROM microsoft/aspnet:1.0.0-rc1-update1
 
 # we need to update sqlite, because the mono base image uses an outdated version
-RUN apt-get update -y && \
-    apt-get install -y python-software-properties && \
-	add-apt-repository 'deb http://ftp.us.debian.org/debian jessie main' -y && \
-	apt-get update -y && \  
-	apt-get install -y sqlite3 libsqlite3-dev 
+RUN	echo "deb http://ftp.us.debian.org/debian jessie main" > /etc/apt/sources.list.d/debian_jessie_main.list && \
+    echo "deb-src http://ftp.us.debian.org/debian jessie main" >> /etc/apt/sources.list.d/debian_jessie_main.list && \
+    apt-get update -y && \  
+    apt-get install -y sqlite3 libsqlite3-dev 	
 
+# copy the application and make it executable
 COPY ./output /app
 RUN chmod 777 /app/approot/web
 
 # clean up, too
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# we run on port 5000
 EXPOSE 5000
 ENTRYPOINT /app/approot/web
