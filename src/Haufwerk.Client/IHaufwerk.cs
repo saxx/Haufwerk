@@ -6,6 +6,10 @@ namespace Haufwerk.Client
 {
     public interface IHaufwerk
     {
+        [NotNull]
+        HaufwerkOptions Options { get; }
+
+        [NotNull]
         Task Post(
             [NotNull] string source,
             [NotNull] string message,
@@ -14,12 +18,13 @@ namespace Haufwerk.Client
             [CanBeNull] string additionalInfo = null
         );
 
+        [NotNull]
         Task Post(
             [NotNull] string source,
             [NotNull] string message,
             [CanBeNull] string user = null,
             [CanBeNull] Exception exception = null,
             [CanBeNull] string additionalInfo = null
-    );
+        );
     }
 }

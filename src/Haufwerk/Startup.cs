@@ -1,4 +1,5 @@
-﻿using Haufwerk.Models;
+﻿using Haufwerk.Client;
+using Haufwerk.Models;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Data.Entity;
@@ -26,6 +27,10 @@ namespace Haufwerk
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHaufwerk(new HaufwerkOptions("Haufwerk", "http://localhost:5000")
+            {
+                LogLocalRequests = true
+            });
             services.AddMvc();
             services.AddEntityFramework().AddSqlite().AddDbContext<Db>(options =>
             {
@@ -39,13 +44,12 @@ namespace Haufwerk
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseHaufwerk("~/error/{0}");
+
             app.ApplicationServices
                 .GetService<Db>()
                 .Database
                 .EnsureCreated();
-
-            // we don't care if anybody sees the full error message
-            app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
 

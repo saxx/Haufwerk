@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Haufwerk.Client;
 using Haufwerk.Models;
 using Haufwerk.ViewModels.Home;
 using JetBrains.Annotations;
@@ -68,6 +67,12 @@ namespace Haufwerk.Controllers
                     && x.Message == issue.Message
                     && (issue.StackTrace == null || x.StackTrace == issue.StackTrace)
                 );
+
+                if (duplicate != null && duplicate.CreationDateTime >= DateTime.UtcNow.AddMinutes(-1))
+                {
+                    // don't log the error again if we already logged it a few seconds ago
+                    return new NoContentResult();
+                }
                 if (duplicate != null)
                 {
                     issue.ParentId = duplicate.Id;
@@ -80,25 +85,20 @@ namespace Haufwerk.Controllers
             return new NoContentResult();
         }
 
-
-        public async Task<IActionResult> TestDuplicate()
+        [Route("~/error/500")]
+        public IActionResult Error500()
         {
-            var haufwerk = GetHaufwerkForCurrentInstance();
-            await haufwerk.Post("Haufwerk Test", "This is just a test", null, "This\n  is\n  the\n  stacktrace", "And some\nAdditional info.");
-            return RedirectToAction("Index");
+            return Redirect("~/");
         }
 
-        public async Task<IActionResult> TestUnique()
+        public IActionResult TestDuplicate()
         {
-            var haufwerk = GetHaufwerkForCurrentInstance();
-            await haufwerk.Post("Haufwerk Test", "This is just a test (" + Guid.NewGuid() + ")", null, "This\n  is\n  the\n  stacktrace", "And some\nAdditional info.");
-            return RedirectToAction("Index");
+            throw new Exception("This is just a test.");
         }
 
-        private IHaufwerk GetHaufwerkForCurrentInstance()
+        public IActionResult TestUnique()
         {
-            var url = Request.Scheme + "://" + Request.Host + Url.Content("~/");
-            return new Client.Haufwerk(url);
+            throw new Exception("This is just a test (" + Guid.NewGuid() + ").");
         }
     }
 }
