@@ -6,8 +6,14 @@
         <tr>
             <th>Date (UTC)</th>
             <th>Source</th>
-            <th>User</th>
-            <th>Count</th>
+            @if (Model.Issues.Any(x => !string.IsNullOrEmpty(x.User)))
+            {
+                <th>User</th>
+            }
+            @if (Model.Issues.Any(x => x.CountWithDuplicates > 1))
+            {
+                <th>Duplicates</th>
+            }
             <th>Message</th>
             <th>
                 <div class="pull-right">
@@ -29,19 +35,28 @@
                         @issue.Source
                     </span>
                 </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(issue.User))
-                    {
-                        <span class="label label-warning">
-                            @issue.User
-                        </span>
-                    }
-                </td>
-                <td>
-                    <span class="badge">
-                        @issue.CountWithDuplicates
-                    </span>
-                </td>
+                @if (Model.Issues.Any(x => !string.IsNullOrEmpty(x.User)))
+                {
+                    <td>
+                        @if (!string.IsNullOrEmpty(issue.User))
+                        {
+                            <span class="label label-warning">
+                                @issue.User
+                            </span>
+                        }
+                    </td>
+                }
+                @if (Model.Issues.Any(x => x.CountWithDuplicates > 1))
+                {
+                    <td>
+                        @if (issue.CountWithDuplicates > 1)
+                        {
+                            <span class="badge">
+                                @(issue.CountWithDuplicates - 1)
+                            </span>
+                        }
+                    </td>
+                }
                 <td>
                     <pre class="message-title">@issue.Message</pre>
                     <div style="display: none;">

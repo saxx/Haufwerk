@@ -46,15 +46,15 @@ namespace Haufwerk.ViewModels.Home
                     var differenceInSeconds = (DateTime.UtcNow - issue.CreationDateTimeWithDuplicates).TotalSeconds;
                     if (differenceInSeconds < 10)
                     {
-                        issue.FormattedCreationDateTimeWithDuplicates = "now";
+                        issue.FormattedCreationDateTimeWithDuplicates = "just now";
                     }
                     else if (differenceInSeconds < 120)
                     {
-                        issue.FormattedCreationDateTimeWithDuplicates = differenceInSeconds.ToString("####") + "s";
+                        issue.FormattedCreationDateTimeWithDuplicates = differenceInSeconds.ToString("####") + "s ago";
                     }
                     else if (differenceInSeconds < 60*120)
                     {
-                        issue.FormattedCreationDateTimeWithDuplicates = (differenceInSeconds / 60).ToString("####") + "m";
+                        issue.FormattedCreationDateTimeWithDuplicates = (differenceInSeconds / 60).ToString("####") + "m ago";
                     }
                     else
                     {

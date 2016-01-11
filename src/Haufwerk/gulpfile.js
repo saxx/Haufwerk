@@ -1,6 +1,4 @@
-﻿"use strict";
-
-var gulp = require("gulp"),
+﻿var gulp = require("gulp"),
     rimraf = require("rimraf"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
