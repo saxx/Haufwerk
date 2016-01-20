@@ -32,6 +32,8 @@ namespace Haufwerk.Client
             var loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
             loggerFactory.AddProvider(app.ApplicationServices.GetService<HaufwerkErrorLoggerProvider>());
 
+            app.UseStatusCodePagesWithRedirects(locationFormat);
+
             app.UseExceptionHandler(exceptionBuilder =>
             {
                 exceptionBuilder.Run(async context =>
