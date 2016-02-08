@@ -27,12 +27,15 @@ namespace Haufwerk.Client
         }
 
 
-        public static IApplicationBuilder UseHaufwerk([NotNull] this IApplicationBuilder app, [NotNull] string locationFormat)
+        public static IApplicationBuilder UseHaufwerk([NotNull] this IApplicationBuilder app, [CanBeNull] string locationFormat = null)
         {
             var loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
             loggerFactory.AddProvider(app.ApplicationServices.GetService<HaufwerkErrorLoggerProvider>());
 
-            app.UseStatusCodePagesWithRedirects(locationFormat);
+            if (!string.IsNullOrWhiteSpace(locationFormat))
+            {
+                app.UseStatusCodePagesWithRedirects(locationFormat);
+            }
 
             app.UseExceptionHandler(exceptionBuilder =>
             {
@@ -54,12 +57,19 @@ namespace Haufwerk.Client
                             var requestUrl = context.Request?.GetDisplayUrl();
                             await haufwerk.Post(haufwerk.Options.Source, error.Error.Message, null, error.Error.ToString(), $"Request URL: {requestUrl}");
 
-                            var location = string.Format(CultureInfo.InvariantCulture, locationFormat, context.Response.StatusCode);
-                            if (locationFormat.StartsWith("~") && context.Request != null)
+                            if (!string.IsNullOrWhiteSpace(locationFormat))
                             {
-                                location = context.Request.PathBase + string.Format(CultureInfo.InvariantCulture, locationFormat.Substring(1), context.Response.StatusCode);
+                                var location = string.Format(CultureInfo.InvariantCulture, locationFormat, context.Response.StatusCode);
+                                if (locationFormat.StartsWith("~") && context.Request != null)
+                                {
+                                    location = context.Request.PathBase + string.Format(CultureInfo.InvariantCulture, locationFormat.Substring(1), context.Response.StatusCode);
+                                }
+                                context.Response.Redirect(location);
                             }
-                            context.Response.Redirect(location);
+                            else
+                            {
+                                await context.Response.WriteAsync("An error has occurred (HTTP 500).");
+                            }
                         }
                     }
                     catch (Exception ex)
