@@ -26,5 +26,13 @@ namespace Haufwerk.Client
             [CanBeNull] Exception exception = null,
             [CanBeNull] string additionalInfo = null
         );
+
+        [NotNull]
+        Task Post(
+            [NotNull] string source,
+            [NotNull] Exception exception,
+            [CanBeNull] string user = null,
+            [CanBeNull] string additionalInfo = null
+        );
     }
 }

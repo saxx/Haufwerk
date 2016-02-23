@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AsyncFriendlyStackTrace;
 using JetBrains.Annotations;
 using Microsoft.AspNet.Http;
 
@@ -65,7 +66,13 @@ namespace Haufwerk.Client
 
         public async Task Post(string source, string message, string user = null, Exception exception = null, string additionalInfo = null)
         {
-            await Post(source, message, user, exception?.ToString(), additionalInfo);
+            await Post(source, message, user, exception?.ToAsyncString(), additionalInfo);
+        }
+
+
+        public async Task Post(string source, Exception exception, string user = null, string additionalInfo = null)
+        {
+            await Post(source, exception.Message, user, exception.ToAsyncString(), additionalInfo);
         }
 
 

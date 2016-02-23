@@ -13,6 +13,11 @@ namespace Haufwerk.Client
 {
     public static class HaufwerkExtensions
     {
+        /// <summary>
+        /// Add Haufwerk-related classes to the service container.
+        /// </summary>
+        /// <param name="services">The service container.</param>
+        /// <param name="options">The configuration options for Haufwerk.</param>
         public static void AddHaufwerk([NotNull] this IServiceCollection services, [NotNull] HaufwerkOptions options)
         {
             services.AddSingleton(provider => options);
@@ -21,13 +26,40 @@ namespace Haufwerk.Client
         }
 
 
+        /// <summary>
+        /// Add Haufwerk-related classes to the service container.
+        /// </summary>
+        /// <param name="services">The service container</param>
+        /// <param name="source">A name that is used to identify the error source (ie. the name of your project).</param>
+        /// <param name="haufwerkInstanceUri">The URL of your Haufwerk instance (ie. https://haufwerk.server.com)</param>
         public static void AddHaufwerk([NotNull] this IServiceCollection services, [NotNull] string source, [NotNull] string haufwerkInstanceUri)
         {
             AddHaufwerk(services, new HaufwerkOptions(source, haufwerkInstanceUri));
         }
 
 
-        public static IApplicationBuilder UseHaufwerk([NotNull] this IApplicationBuilder app, [CanBeNull] string locationFormat = null)
+        /// <summary>
+        /// Catches all application exceptions and posts them to Haufwerk. 
+        /// In addition, when using the default configuration, the stacktrace is printed for local requests and a generic error message is printed for remote requests.
+        /// </summary>
+        /// <param name="app">The application builder.</param>
+        /// <returns>The updated application builder (for fluent method chaining).</returns>
+        public static IApplicationBuilder UseHaufwerk([NotNull] this IApplicationBuilder app)
+        {
+            return UseHaufwerk(app, null);
+        }
+
+        /// <summary>
+        /// Catches all application exceptions and posts them to Haufwerk. 
+        /// In addition, when using the default configuration, the stacktrace is printed for local requests and a generic error message is printed for remote requests.
+        /// </summary>
+        /// <param name="app">The application builder.</param>
+        /// <param name="locationFormat">
+        /// If specified, ASP.NET is configured for 'UseStatusCodePagesWithRedirects' using the specified locationFormat. 
+        /// In that case, the generic error message behavior is overridden.
+        /// </param>
+        /// <returns>The updated application builder (for fluent method chaining).</returns>
+        public static IApplicationBuilder UseHaufwerk([NotNull] this IApplicationBuilder app, [CanBeNull] string locationFormat)
         {
             var loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
             loggerFactory.AddProvider(app.ApplicationServices.GetService<HaufwerkErrorLoggerProvider>());
@@ -49,13 +81,14 @@ namespace Haufwerk.Client
                         if (!haufwerk.Options.LogLocalRequests && Haufwerk.IsLocalRequest(context.Request))
                         {
                             // just return the full error message
+                            context.Response.StatusCode = 500;
                             await context.Response.WriteAsync(error.Error.ToString());
                         }
                         else
                         {
                             // log to Haufwerk and redirect to the error page
                             var requestUrl = context.Request?.GetDisplayUrl();
-                            await haufwerk.Post(haufwerk.Options.Source, error.Error.Message, null, error.Error.ToString(), $"Request URL: {requestUrl}");
+                            await haufwerk.Post(haufwerk.Options.Source, error.Error.Message, null, error.Error, $"Request URL: {requestUrl}");
 
                             if (!string.IsNullOrWhiteSpace(locationFormat))
                             {
@@ -68,6 +101,8 @@ namespace Haufwerk.Client
                             }
                             else
                             {
+                                // hide the full error message
+                                context.Response.StatusCode = 500;
                                 await context.Response.WriteAsync("An error has occurred (HTTP 500).");
                             }
                         }
