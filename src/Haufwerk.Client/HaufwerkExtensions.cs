@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using AsyncFriendlyStackTrace;
 using JetBrains.Annotations;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
@@ -82,13 +83,13 @@ namespace Haufwerk.Client
                         {
                             // just return the full error message
                             context.Response.StatusCode = 500;
-                            await context.Response.WriteAsync(error.Error.ToString());
+                            await context.Response.WriteAsync(error.Error.ToAsyncString());
                         }
                         else
                         {
                             // log to Haufwerk and redirect to the error page
                             var requestUrl = context.Request?.GetDisplayUrl();
-                            await haufwerk.Post(haufwerk.Options.Source, error.Error.Message, null, error.Error, $"Request URL: {requestUrl}");
+                            await haufwerk.Post(haufwerk.Options.Source, error.Error, null, $"Request URL: {requestUrl}");
 
                             if (!string.IsNullOrWhiteSpace(locationFormat))
                             {
@@ -109,7 +110,7 @@ namespace Haufwerk.Client
                     }
                     catch (Exception ex)
                     {
-                        await context.Response.WriteAsync(ex.ToString());
+                        await context.Response.WriteAsync(ex.ToAsyncString());
                     }
                 });
             });
