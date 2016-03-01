@@ -84,7 +84,7 @@ namespace Haufwerk.Client
                             // just return the full error message
                             context.Response.StatusCode = 500;
                             context.Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = error.Error.Message;
-                            await context.Response.WriteAsync(error.Error.ToAsyncString());
+                            await context.Response.WriteAsync(Haufwerk.ToAsyncStringSafe(error.Error));
                         }
                         else
                         {
@@ -111,7 +111,7 @@ namespace Haufwerk.Client
                     }
                     catch (Exception ex)
                     {
-                        await context.Response.WriteAsync(ex.ToAsyncString());
+                        await context.Response.WriteAsync(Haufwerk.ToAsyncStringSafe(ex));
                     }
                 });
             });

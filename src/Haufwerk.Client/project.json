@@ -1,5 +1,5 @@
 {
-  "version": "0.0.8",
+  "version": "0.0.9",
   "title": "Haufwerk Client",
   "description": "Client library to post errors/exceptions to an Haufwerk instance.",
   "authors": [ "Hannes 'saxx' Sachsenhofer" ],
@@ -15,12 +15,12 @@
   },
 
   "dependencies": {
-    "System.Net.Http": "4.0.0",
-    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
+    "AsyncFriendlyStackTrace": "1.0.0",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
-    "AsyncFriendlyStackTrace": "1.0.0"
+    "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+    "System.Net.Http": "4.0.0"
   }
 }

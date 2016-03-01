@@ -66,13 +66,13 @@ namespace Haufwerk.Client
 
         public async Task Post(string source, string message, string user = null, Exception exception = null, string additionalInfo = null)
         {
-            await Post(source, message, user, exception?.ToAsyncString(), additionalInfo);
+            await Post(source, message, user, ToAsyncStringSafe(exception), additionalInfo);
         }
 
 
         public async Task Post(string source, Exception exception, string user = null, string additionalInfo = null)
         {
-            await Post(source, exception.Message, user, exception.ToAsyncString(), additionalInfo);
+            await Post(source, exception.Message, user, ToAsyncStringSafe(exception), additionalInfo);
         }
 
 
@@ -87,6 +87,25 @@ namespace Haufwerk.Client
                 }
             }
             return false;
+        }
+
+
+        [CanBeNull]
+        internal static string ToAsyncStringSafe([CanBeNull] Exception exception)
+        {
+            if (exception == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return exception.ToAsyncString();
+            }
+            catch
+            {
+                return exception.ToString();
+            }
         }
     }
 }
