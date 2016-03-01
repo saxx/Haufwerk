@@ -86,7 +86,7 @@ namespace Haufwerk.Controllers
                 {
                     Timeout = TimeSpan.FromSeconds(3)
                 };
-                await client.GetAsync("http://some_url_that_does_not_exist_" + Guid.NewGuid() + "/");
+                await client.GetAsync("http://some_url_that_does_not_exist_112233.com/");
             }
             catch (Exception ex)
             {
