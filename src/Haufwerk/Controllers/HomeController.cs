@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Haufwerk.FriendlyAsyncTest;
 using Haufwerk.Models;
 using Haufwerk.ViewModels.Home;
 using JetBrains.Annotations;
@@ -72,6 +74,33 @@ namespace Haufwerk.Controllers
         public IActionResult TestUnique()
         {
             throw new Exception("This is just a test (" + Guid.NewGuid() + ").");
+        }
+
+
+        public async Task<IActionResult> TestFriendlyAsync()
+        {
+            var model = "";
+            try
+            {
+                var client = new HttpClient
+                {
+                    Timeout = TimeSpan.FromSeconds(3)
+                };
+                await client.GetAsync("http://some_url_that_does_not_exist_" + Guid.NewGuid() + "/");
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    model = ex.ToAsyncString();
+                }
+                catch (Exception innerEx)
+                {
+                    model = "Unable to build friendly stack trace.\n\n" + innerEx;
+                }
+            }
+
+            return View("TestFriendlyAsync", model);
         }
     }
 }
