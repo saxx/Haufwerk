@@ -14,8 +14,13 @@ namespace Haufwerk.FriendlyAsyncTest
         private const string AggregateExceptionFormatString = "{0}{1}---> (Inner Exception #{2}) {3}{4}{5}";
         private const string AsyncStackTraceExceptionData = "AsyncFriendlyStackTrace";
 
+#if MONO
+        private static readonly Func<Exception, string> GetStackTraceString =
+            ReflectionUtil.GenerateGetField<Exception, string>("stack_trace");
+#else
         private static readonly Func<Exception, string> GetStackTraceString =
             ReflectionUtil.GenerateGetField<Exception, string>("_stackTraceString");
+#endif
 
         private static readonly Func<Exception, string> GetRemoteStackTraceString =
             ReflectionUtil.GenerateGetField<Exception, string>("_remoteStackTraceString");

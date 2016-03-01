@@ -58,8 +58,8 @@ namespace Haufwerk.Controllers
         }
 
 
-        [Route("~/error/500")]
-        public IActionResult Error500()
+        [Route("~/error/{errorCode}")]
+        public IActionResult Error(int errorCode)
         {
             return Redirect("~/");
         }
