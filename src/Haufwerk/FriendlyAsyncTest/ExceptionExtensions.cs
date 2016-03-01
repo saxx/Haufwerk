@@ -14,14 +14,9 @@ namespace Haufwerk.FriendlyAsyncTest
         private const string AggregateExceptionFormatString = "{0}{1}---> (Inner Exception #{2}) {3}{4}{5}";
         private const string AsyncStackTraceExceptionData = "AsyncFriendlyStackTrace";
 
-#if __MonoCS__
-        private static readonly Func<Exception, string> GetStackTraceString =
-            ReflectionUtil.GenerateGetField<Exception, string>("stack_trace");
-#else
-        private static readonly Func<Exception, string> GetStackTraceString =
-            ReflectionUtil.GenerateGetField<Exception, string>("_stackTraceString");
-#endif
-
+        private static Func<Exception, string> GetStackTraceString => 
+            ReflectionUtil.GenerateGetField<Exception, string>(IsRunningOnMono() ? "stack_trace" : "_stackTraceString");
+        
         private static readonly Func<Exception, string> GetRemoteStackTraceString =
             ReflectionUtil.GenerateGetField<Exception, string>("_remoteStackTraceString");
 
@@ -122,6 +117,12 @@ namespace Haufwerk.FriendlyAsyncTest
                              new StackTrace(exception, true).ToAsyncString();
             var remoteStackTrace = GetRemoteStackTraceString(exception);
             return remoteStackTrace + stackTrace;
+        }
+
+        // see http://www.mono-project.com/docs/gui/winforms/porting-winforms-applications/#runtime-conditionals
+        private static bool IsRunningOnMono()
+        {
+            return Type.GetType("Mono.Runtime") != null;
         }
     }
 }
