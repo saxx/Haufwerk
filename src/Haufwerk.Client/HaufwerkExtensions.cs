@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using AsyncFriendlyStackTrace;
 using JetBrains.Annotations;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
