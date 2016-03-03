@@ -1,4 +1,4 @@
-FROM microsoft/aspnet:1.0.0-rc1-update1-coreclr
+FROM microsoft/aspnet:1.0.0-rc1-update1
 
 # we need to update sqlite, because the mono base image uses an outdated version
 RUN	echo "deb http://ftp.us.debian.org/debian jessie main" > /etc/apt/sources.list.d/debian_jessie_main.list && \
