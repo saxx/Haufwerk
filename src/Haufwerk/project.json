@@ -7,7 +7,7 @@
   "dependencies": {
     "EntityFramework.Sqlite": "7.0.0-rc1-final",
     "Haufwerk.Client": "",
-    "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
+    "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1-update2",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
