@@ -8,7 +8,7 @@
     "EntityFramework.Sqlite": "7.0.0-rc1-final",
     "Haufwerk.Client": "",
     "Microsoft.ApplicationInsights": "2.0.0-rc1",
-    "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1-update2",
+    "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
     "Microsoft.ApplicationInsights.DependencyCollector": "2.0.0-rc1",
     "Microsoft.ApplicationInsights.PerfCounterCollector": "2.0.0-rc1",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
