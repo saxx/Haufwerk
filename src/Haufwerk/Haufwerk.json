@@ -6,5 +6,8 @@
       "System": "Information",
       "Microsoft": "Information"
     }
+  },
+  "ApplicationInsights": {
+    "InstrumentationKey": "0dd17902-a149-4fe7-814e-c5ae873f6778"
   }
 }

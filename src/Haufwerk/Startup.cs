@@ -27,6 +27,7 @@ namespace Haufwerk
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry(Configuration);
             services.AddHaufwerk(new HaufwerkOptions("Haufwerk", "http://localhost:5000")
             {
                 LogLocalRequests = true
@@ -44,6 +45,7 @@ namespace Haufwerk
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseApplicationInsightsRequestTelemetry();
             app.UseHaufwerk("~/error/{0}");
 
             app.ApplicationServices
