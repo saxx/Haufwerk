@@ -56,13 +56,6 @@ namespace Haufwerk.Controllers
         }
 
 
-        [Route("~/error/{errorCode}")]
-        public IActionResult Error(int errorCode)
-        {
-            return Redirect("~/");
-        }
-
-
         public IActionResult TestDuplicate()
         {
             throw new Exception("This is just a test.");

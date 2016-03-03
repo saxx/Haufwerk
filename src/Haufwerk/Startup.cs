@@ -46,7 +46,7 @@ namespace Haufwerk
             loggerFactory.AddDebug();
 
             app.UseApplicationInsightsRequestTelemetry();
-            app.UseHaufwerk("~/error/{0}");
+            app.UseHaufwerk();
 
             app.ApplicationServices
                 .GetService<Db>()
