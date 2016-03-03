@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "0.0.0",
   "compilationOptions": {
     "emitEntryPoint": true
   },
@@ -36,8 +36,5 @@
   "publishExclude": [
     "**.user",
     "**.vspscc"
-  ],
-  "scripts": {
-    "prepublish": [ ]
-  }
+  ]
 }
