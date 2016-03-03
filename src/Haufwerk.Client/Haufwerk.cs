@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AsyncFriendlyStackTrace;
 using JetBrains.Annotations;
 using Microsoft.AspNet.Http;
 
@@ -98,14 +97,7 @@ namespace Haufwerk.Client
                 return null;
             }
 
-            try
-            {
-                return exception.ToAsyncString();
-            }
-            catch
-            {
-                return exception.ToString();
-            }
+            return exception.ToString();
         }
     }
 }

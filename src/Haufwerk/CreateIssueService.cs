@@ -70,13 +70,13 @@ namespace Haufwerk
                 }
 
                 // identical stackstrace > duplicate
-                if (duplicate.StackTrace.Equals(issue.StackTrace, StringComparison.InvariantCultureIgnoreCase))
+                if (duplicate.StackTrace.Equals(issue.StackTrace, StringComparison.OrdinalIgnoreCase))
                 {
                     return duplicate;
                 }
 
                 // if one stacktrace is a subset of the other > duplicate
-                if (duplicate.StackTrace.StartsWith(issue.StackTrace, StringComparison.InvariantCultureIgnoreCase) || issue.StackTrace.StartsWith(duplicate.StackTrace, StringComparison.InvariantCultureIgnoreCase))
+                if (duplicate.StackTrace.StartsWith(issue.StackTrace, StringComparison.OrdinalIgnoreCase) || issue.StackTrace.StartsWith(duplicate.StackTrace, StringComparison.OrdinalIgnoreCase))
                 {
                     return duplicate;
                 }

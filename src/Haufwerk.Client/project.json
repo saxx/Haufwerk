@@ -11,11 +11,15 @@
   "copyright": "",
 
   "frameworks": {
-    "dnx451": { }
+    "dnx451": { },
+    "dnxcore50": {
+      "dependencies": {
+        "System.Console": "4.0.0-beta-23516"
+      }
+    }
   },
 
   "dependencies": {
-    "AsyncFriendlyStackTrace": "1.0.0",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
     "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
