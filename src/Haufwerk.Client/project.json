@@ -1,5 +1,5 @@
 {
-  "version": "0.0.9",
+  "version": "0.0.10",
   "title": "Haufwerk Client",
   "description": "Client library to post errors/exceptions to an Haufwerk instance.",
   "authors": [ "Hannes 'saxx' Sachsenhofer" ],
@@ -14,7 +14,8 @@
     "dnx451": { },
     "dnxcore50": {
       "dependencies": {
-        "System.Console": "4.0.0-beta-23516"
+        "System.Console": "4.0.0-beta-23516",
+        "System.Diagnostics.StackTrace": "4.0.1-beta-23516"
       }
     }
   },
