@@ -34,7 +34,22 @@ namespace Haufwerk.Client
         /// <param name="haufwerkInstanceUri">The URL of your Haufwerk instance (ie. https://haufwerk.server.com)</param>
         public static void AddHaufwerk([NotNull] this IServiceCollection services, [NotNull] string source, [NotNull] string haufwerkInstanceUri)
         {
-            AddHaufwerk(services, new HaufwerkOptions(source, haufwerkInstanceUri));
+            AddHaufwerk(services, source, haufwerkInstanceUri, false);
+        }
+
+        /// <summary>
+        /// Add Haufwerk-related classes to the service container.
+        /// </summary>
+        /// <param name="services">The service container</param>
+        /// <param name="source">A name that is used to identify the error source (ie. the name of your project).</param>
+        /// <param name="haufwerkInstanceUri">The URL of your Haufwerk instance (ie. https://haufwerk.server.com)</param>
+        /// <param name="logLocalRequests">A value indicating whether or not local requests should be logged as "normal" requests (no special handling for local requests). Defaults to 'false'.</param>
+        public static void AddHaufwerk([NotNull] this IServiceCollection services, [NotNull] string source, [NotNull] string haufwerkInstanceUri, bool logLocalRequests)
+        {
+            AddHaufwerk(services, new HaufwerkOptions(source, haufwerkInstanceUri)
+            {
+                LogLocalRequests = logLocalRequests
+            });
         }
 
 
@@ -89,7 +104,7 @@ namespace Haufwerk.Client
                         {
                             // log to Haufwerk and redirect to the error page
                             var requestUrl = context.Request?.GetDisplayUrl();
-                            await haufwerk.Post(haufwerk.Options.Source, error.Error, null, $"Request URL: {requestUrl}");
+                            await haufwerk.Post(error.Error, null, null, $"Request URL: {requestUrl}");
 
                             if (!string.IsNullOrWhiteSpace(locationFormat))
                             {

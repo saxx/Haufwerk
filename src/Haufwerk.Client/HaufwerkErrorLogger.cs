@@ -62,7 +62,12 @@ namespace Haufwerk.Client
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
+                if (exception != null)
+                {
+                    Console.WriteLine ("====================== Exception that should have been logged ======================");
+                    Console.WriteLine(exception.ToString());
+                }
             }
         }
 

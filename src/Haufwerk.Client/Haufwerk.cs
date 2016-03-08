@@ -25,14 +25,16 @@ namespace Haufwerk.Client
 
 
         public async Task Post(
-            string source,
             string message,
+            string source = null,
             string user = null,
             string stackTrace = null,
             string additionalInfo = null)
         {
             try
             {
+                source = source ?? Options.Source;
+
                 var client = new HttpClient();
 
                 var content = new Dictionary<string, string>
@@ -64,15 +66,15 @@ namespace Haufwerk.Client
         }
 
 
-        public async Task Post(string source, string message, string user = null, Exception exception = null, string additionalInfo = null)
+        public async Task Post(string message, string source = null, string user = null, Exception exception = null, string additionalInfo = null)
         {
-            await Post(source, message, user, ToAsyncStringSafe(exception), additionalInfo);
+            await Post(message, source, user, ToAsyncStringSafe(exception), additionalInfo);
         }
 
 
-        public async Task Post(string source, Exception exception, string user = null, string additionalInfo = null)
+        public async Task Post(Exception exception, string source = null, string user = null, string additionalInfo = null)
         {
-            await Post(source, exception.Message, user, ToAsyncStringSafe(exception), additionalInfo);
+            await Post(exception.Message, source, user, ToAsyncStringSafe(exception), additionalInfo);
         }
 
 
