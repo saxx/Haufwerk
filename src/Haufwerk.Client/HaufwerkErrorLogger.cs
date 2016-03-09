@@ -55,7 +55,6 @@ namespace Haufwerk.Client
             try
             {
                 _haufwerk.Post(
-                    _haufwerk.Options.Source,
                     message,
                     exception: exception,
                     additionalInfo: $"Log Level: {logLevel}\nRequest URL: {requestUrl}\nCategory: {_categoryName}").GetAwaiter().GetResult();
