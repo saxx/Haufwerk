@@ -23,4 +23,5 @@ td pre {
 
 .message-title {
     cursor: pointer;
+    white-space: pre-wrap;
 }
