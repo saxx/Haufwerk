@@ -1,29 +1,29 @@
-var HomeIndexPage = (function () {
-    function HomeIndexPage() {
-    }
-    HomeIndexPage.prototype.init = function () {
-        $(".glyphicon-trash").click(function () { return confirm("Sure?"); });
+﻿class HomeIndexPage {
+    init() {
+        $(".glyphicon-trash").click(() => confirm("Sure?"));
+
         var showIgnoredCheckbox = $("#showIgnored");
-        showIgnoredCheckbox.click(function () {
+        showIgnoredCheckbox.click(() => {
             if (showIgnoredCheckbox.is(":checked")) {
                 $(".ignored").show();
                 window.localStorage["showIgnored"] = "true";
-            }
-            else {
+            } else {
                 $(".ignored").hide();
                 window.localStorage["showIgnored"] = "false";
             }
         });
-        $(document).ready(function () {
+
+        $(document).ready(() => {
             showIgnoredCheckbox.attr("checked", null);
             if (window.localStorage["showIgnored"] === "true") {
                 showIgnoredCheckbox.click();
             }
         });
+
         var messageTitle = $(".message-title");
-        messageTitle.click(function () {
+        messageTitle.click(() => {
             messageTitle.siblings("div").toggle();
         });
-    };
-    return HomeIndexPage;
-}());
+    }
+}
+

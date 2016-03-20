@@ -91,30 +91,8 @@ else
 
 @section scripts {
     <script>
-        $(".glyphicon.glyphicon-trash").click(function () {
-            return confirm("Sure?");
-        });
-
-        var showIgnoredCheckbox = $("#showIgnored");
-        showIgnoredCheckbox.click(function () {
-            if (showIgnoredCheckbox.is(":checked")) {
-                $(".ignored").show();
-                window.localStorage["showIgnored"] = "true";
-            } else {
-                $(".ignored").hide();
-                window.localStorage["showIgnored"] = "false";
-            }
-        });
-
-        $(document).ready(function () {
-            showIgnoredCheckbox.val(false);
-            if (window.localStorage["showIgnored"] === "true") {
-                showIgnoredCheckbox.click();
-            }
-        });
-
-        $(".message-title").click(function () {
-            $(this).siblings("div").toggle();
-        });
+        var page = new HomeIndexPage();
+        page.init();
     </script>
+
 }

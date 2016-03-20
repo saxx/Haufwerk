@@ -12,7 +12,7 @@ gulp.task("js", function () {
     return gulp.src("./wwwroot/js/**/*.ts")
         .pipe(ts({ module: "commonjs" }))
         .pipe(concat("./wwwroot/js/site.min.js"))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest("."));
 });
 
