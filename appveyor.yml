@@ -5,7 +5,7 @@ os: Visual Studio 2015
 install:
 - dnvm install -arch x64 1.0.0-rc1-update1
 - dnvm use -arch x64 1.0.0-rc1-update1
-- dnu restore ".\src\Haufwerk"
+- dnu restore --quiet ".\src\Haufwerk"
 
 build_script:
 - SET PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
