@@ -5,6 +5,7 @@ os: Visual Studio 2015
 install:
 - dnvm install -arch x64 1.0.0-rc1-update1
 - dnvm use -arch x64 1.0.0-rc1-update1
+- dnu restore --quiet ".\src\Haufwerk.Client"
 - dnu restore --quiet ".\src\Haufwerk"
 
 build_script:

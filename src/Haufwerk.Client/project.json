@@ -10,16 +10,23 @@
   "summary": "",
   "copyright": "",
 
-  "frameworks": {
-    "dnx451": { }
-  },
-
   "dependencies": {
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
     "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-    "System.Net.Http": "4.0.0"
+    "System.Net.Http": "4.0.0",
+    "System.Runtime": "4.0.0-beta-23019"
+  },
+
+  "frameworks": {
+    "dnx451": { },
+    "dnxcore50": {
+      "dependencies": {
+        "System.Console": "4.0.0-beta-23109",
+        "System.Diagnostics.StackTrace": "4.0.0-beta-23109"
+      }
+    }
   }
 }

@@ -24,7 +24,8 @@
     "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
-    "System.Net.Http": "4.0.0"
+    "System.Net.Http": "4.0.0",
+    "System.Runtime": "4.0.10-beta-23019"
   },
 
   "commands": {
@@ -33,7 +34,8 @@
   },
 
   "frameworks": {
-    "dnx451": { }
+    "dnx451": { },
+    "dnxcore50": { }
   },
 
   "exclude": [
