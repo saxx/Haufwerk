@@ -1,8 +1,6 @@
 {
+  "webroot": "wwwroot",
   "version": "0.0.0",
-  "compilationOptions": {
-    "emitEntryPoint": true
-  },
 
   "dependencies": {
     "EntityFramework.Commands": "7.0.0-rc1-final",
@@ -39,10 +37,20 @@
 
   "exclude": [
     "wwwroot",
-    "node_modules"
+    "node_modules",
+    "bower_components"
   ],
+
   "publishExclude": [
+    "node_modules",
+    "bower_components",
+    "**.xproj",
     "**.user",
     "**.vspscc"
-  ]
+  ],
+
+  "scripts": {
+    "postrestore": [ ],
+    "prepare": [ ]
+  }
 }
