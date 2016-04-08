@@ -3,8 +3,8 @@ version: '{build}'
 os: Visual Studio 2015
 
 install:
-- dnvm install -arch x64 -r coreclr 1.0.0-rc1-update1
-- dnvm use -arch x64 -r coreclr 1.0.0-rc1-update1
+- dnvm install -arch x64 1.0.0-rc1-update1
+- dnvm use -arch x64 1.0.0-rc1-update1
 - dnu restore ".\src\Haufwerk"
 
 build_script:
