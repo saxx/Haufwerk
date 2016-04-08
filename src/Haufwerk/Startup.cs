@@ -33,10 +33,15 @@ namespace Haufwerk
                 LogLocalRequests = true
             });
             services.AddMvc();
-            services.AddEntityFramework().AddSqlite().AddDbContext<Db>(options =>
-            {
-                options.UseSqlite(Configuration.GetSection("Database").Get("ConnectionString", "Data Source=Haufwerk.db"));
-            });
+            services
+                .AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<Db>(options =>
+                {
+                    options.UseSqlServer(Configuration
+                        .GetSection("Database")
+                        .Get("ConnectionString", "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=Haufwerk; Integrated Security=True; MultipleActiveResultSets=True;"));
+                });
         }
 
 
@@ -51,7 +56,7 @@ namespace Haufwerk
             app.ApplicationServices
                 .GetService<Db>()
                 .Database
-                .EnsureCreated();
+                .Migrate();
 
             app.UseStaticFiles();
 
