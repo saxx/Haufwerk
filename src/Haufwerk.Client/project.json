@@ -11,13 +11,7 @@
   "copyright": "",
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
-      "dependencies": {
-        "System.Console": "4.0.0-beta-23516",
-        "System.Diagnostics.StackTrace": "4.0.1-beta-23516"
-      }
-    }
+    "dnx451": { }
   },
 
   "dependencies": {
