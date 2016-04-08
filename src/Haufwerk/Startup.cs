@@ -58,6 +58,7 @@ namespace Haufwerk
                 .Database
                 .Migrate();
 
+            app.UseIISPlatformHandler();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
