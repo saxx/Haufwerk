@@ -10,7 +10,7 @@ install:
 build_script:
 - SET PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 - CALL dnu publish ".\src\Haufwerk" --out "%APPVEYOR_BUILD_FOLDER%\artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-rc1-update1 --wwwroot-out "wwwroot" --quiet
-- CALL dnu pack ".\src\Haufwerk.Client" --configuration Release
+- CALL dnu pack ".\src\Haufwerk.Client" --configuration Release > nul
 
 artifacts:
 - path: artifacts/publish
