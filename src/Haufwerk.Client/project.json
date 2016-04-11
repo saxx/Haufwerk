@@ -1,9 +1,9 @@
 {
-  "version": "0.0.13",
+  "version": "0.0.14",
   "title": "Haufwerk Client",
   "description": "Client library to post errors/exceptions to an Haufwerk instance. See https://github.com/saxx/haufwerk for more information about Haufwerk.",
   "authors": [ "Hannes 'saxx' Sachsenhofer" ],
-  "tags": [ "" ],
+  "tags": [ "haufwerk", "logging", "exception" ],
   "projectUrl": "https://github.com/saxx/Haufwerk",
   "licenseUrl": "",
   "iconUrl": "https://raw.githubusercontent.com/saxx/Haufwerk/master/src/Haufwerk/wwwroot/apple-icon.png",
@@ -23,7 +23,6 @@
     "dnx451": { },
     "dnxcore50": {
       "dependencies": {
-        "System.Console": "4.0.0-beta-23109",
         "System.Diagnostics.StackTrace": "4.0.0-beta-23109",
         "System.Runtime": "4.0.21-beta-23516"
       }

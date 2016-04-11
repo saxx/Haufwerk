@@ -52,22 +52,10 @@ namespace Haufwerk.Client
             }
 
             var requestUrl = _httpContextAccessor?.HttpContext?.Request?.GetDisplayUrl();
-            try
-            {
-                _haufwerk.Post(
-                    message,
-                    exception: exception,
-                    additionalInfo: $"Log Level: {logLevel}\nRequest URL: {requestUrl}\nCategory: {_categoryName}").GetAwaiter().GetResult();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                if (exception != null)
-                {
-                    Console.WriteLine ("====================== Exception that should have been logged ======================");
-                    Console.WriteLine(exception.ToString());
-                }
-            }
+            _haufwerk.Post(
+                message,
+                exception: exception,
+                additionalInfo: $"Log Level: {logLevel}\nRequest URL: {requestUrl}\nCategory: {_categoryName}").GetAwaiter().GetResult();
         }
 
 

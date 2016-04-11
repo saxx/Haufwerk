@@ -15,7 +15,14 @@ namespace Haufwerk.Client
             Options = options;
         }
 
+
         public Haufwerk([NotNull] string source, [NotNull] string uri)
+        {
+            Options = new HaufwerkOptions(source, uri);
+        }
+
+
+        public Haufwerk([NotNull] string source, [NotNull] Uri uri)
         {
             Options = new HaufwerkOptions(source, uri);
         }
@@ -61,7 +68,6 @@ namespace Haufwerk.Client
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Unable to log exception to Haufwerk, because '{ex.Message}'.");
                 throw new HaufwerkException(ex);
             }
         }
