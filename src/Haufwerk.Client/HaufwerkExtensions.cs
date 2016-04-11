@@ -95,6 +95,8 @@ namespace Haufwerk.Client
 
                         if (!haufwerk.Options.LogLocalRequests && Haufwerk.IsLocalRequest(context.Request))
                         {
+                            Console.WriteLine($"Not logging exception to Haufwerk, because {context.Request.Host} is localhost.");
+
                             // just return the full error message
                             context.Response.StatusCode = 500;
                             context.Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = error.Error.Message;
@@ -125,6 +127,8 @@ namespace Haufwerk.Client
                     }
                     catch (Exception ex)
                     {
+                        context.Response.StatusCode = 500;
+                        context.Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = ex.Message;
                         await context.Response.WriteAsync(Haufwerk.ToAsyncStringSafe(ex));
                     }
                 });

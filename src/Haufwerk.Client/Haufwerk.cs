@@ -61,6 +61,7 @@ namespace Haufwerk.Client
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Unable to log exception to Haufwerk, because '{ex.Message}'.");
                 throw new HaufwerkException(ex);
             }
         }
