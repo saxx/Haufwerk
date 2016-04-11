@@ -23,16 +23,12 @@ environment:
     secure: +4+0JDINyo6SMCl7QDFxjA==
   deploy_password:
     secure: RHmwJ0TuDaknqQdBiIUtYiO6NSmxqEbXDACMtJG16W4=
+  nuget_key:
+    secure: 7STw7NoWh/5V4LBPzBeXtikLJgAsL+ZikyOKSJqiksM9ZcilhaSFGFawGEeml3WT
 
 deploy_script:
+- CALL nuget push ".\src\Haufwerk.Client\bin\Release\*.nupkg" %nuget_key%
 - CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Haufwerk,recycleMode=StopAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
 - CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPath=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\wwwroot -dest:contentPath=Haufwerk,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
 - CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPathLib=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\approot -dest:contentPathLib=Haufwerk,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
 - CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Haufwerk,recycleMode=StartAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
-
-deploy:
-  provider: NuGet
-  api_key:
-    secure: 7STw7NoWh/5V4LBPzBeXtikLJgAsL+ZikyOKSJqiksM9ZcilhaSFGFawGEeml3WT
-  skip_symbols: true
-  artifact: /.*\.nupkg/
