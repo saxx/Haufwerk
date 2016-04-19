@@ -21,9 +21,8 @@
         });
 
         var messageTitle = $(".message-title");
-        messageTitle.click(() => {
-            messageTitle.siblings("div").toggle();
+        messageTitle.click((evnt) => {
+            $(evnt.target).siblings("div").toggle();
         });
     }
 }
-
