@@ -17,7 +17,6 @@ td pre {
     height: auto;
     max-height: 200px;
     overflow: auto;
-    white-space: pre-wrap !important;
 }
 
 .btn-xs {
@@ -30,10 +29,10 @@ td pre {
 }
 
 .table {
-    td:nth-of-type(1), td:nth-of-type(2) {
+    td:nth-of-type(1), td:nth-of-type(2), td:nth-of-type(3) {
         width: 90px;
     }
-    td:nth-of-type(4) {
+    td:nth-of-type(5) {
         width: 70px;
     }
 }
