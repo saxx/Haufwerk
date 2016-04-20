@@ -29,10 +29,10 @@ td pre {
 }
 
 .table {
-    td:nth-of-type(1), td:nth-of-type(2), td:nth-of-type(3) {
-        width: 90px;
+    td:nth-of-type(1), td:nth-of-type(2), td:nth-of-type(3), td:nth-of-type(4) {
+        width: 10px; /* Some small width, it will expand anyways, but it should only take as much space as needed */
     }
-    td:nth-of-type(5) {
+    td:nth-of-type(6) {
         width: 70px;
     }
 }
