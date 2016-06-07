@@ -4,8 +4,10 @@ os: Visual Studio 2015
 
 build_script:
 - CALL dotnet restore
+- cd "%APPVEYOR_BUILD_FOLDER%/src/Haufwerk"
 - CALL dotnet publish --configuration Release --output "%APPVEYOR_BUILD_FOLDER%\artifacts\publish"
-- CALL .\publish_to_nuget.cmd
+- cd "%APPVEYOR_BUILD_FOLDER%"
+- CALL ./publish_to_nuget.cmd
 
 artifacts:
 - path: artifacts/publish
