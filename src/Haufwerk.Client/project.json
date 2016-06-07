@@ -1,5 +1,17 @@
 {
-  "version": "1.0.0-*",
+  "version": "0.0.15",
+  "title": "Haufwerk Client",
+  "description": "Client library to post errors/exceptions to an Haufwerk instance. See https://github.com/saxx/haufwerk for more information about Haufwerk.",
+  "authors": [ "Hannes 'saxx' Sachsenhofer" ],
+  "copyright": "",
+
+  "packOptions": {
+    "tags": [ "haufwerk", "logging", "exception" ],
+    "projectUrl": "https://github.com/saxx/Haufwerk",
+    "licenseUrl": "",
+    "iconUrl": "https://raw.githubusercontent.com/saxx/Haufwerk/master/src/Haufwerk/wwwroot/apple-icon.png",
+    "summary": ""
+  },
 
   "dependencies": {
     "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
