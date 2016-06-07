@@ -1,8 +1,8 @@
 ﻿using Haufwerk.Client;
 using Haufwerk.Models;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,19 +11,21 @@ namespace Haufwerk
 {
     public class Startup
     {
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
-
-        // ReSharper disable once UnusedParameter.Local
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("Haufwerk.json")
                 .AddEnvironmentVariables("Haufwerk:");
+            if (env.IsDevelopment())
+            {
+                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
+                builder.AddApplicationInsightsSettings(developerMode: true);
+            }
             Configuration = builder.Build();
         }
 
+        public IConfigurationRoot Configuration { get; }
 
-        public IConfigurationRoot Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,15 +35,10 @@ namespace Haufwerk
                 LogLocalRequests = true
             });
             services.AddMvc();
-            services
-                .AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<Db>(options =>
-                {
-                    options.UseSqlServer(Configuration
-                        .GetSection("Database")
-                        .Get("ConnectionString", "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=Haufwerk; Integrated Security=True; MultipleActiveResultSets=True;"));
-                });
+            services.AddDbContext<Db>(options =>
+            {
+                options.UseSqlServer(Configuration["Database:ConnectionString"]);
+            });
         }
 
 
@@ -51,6 +48,7 @@ namespace Haufwerk
             loggerFactory.AddDebug();
 
             app.UseApplicationInsightsRequestTelemetry();
+            app.UseApplicationInsightsExceptionTelemetry();
             app.UseHaufwerk();
 
             app.ApplicationServices
@@ -58,14 +56,11 @@ namespace Haufwerk
                 .Database
                 .Migrate();
 
-            app.UseIISPlatformHandler();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

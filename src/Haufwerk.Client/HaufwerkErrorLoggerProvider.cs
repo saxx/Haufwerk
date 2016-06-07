@@ -1,6 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
-using Microsoft.AspNet.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Haufwerk.Client

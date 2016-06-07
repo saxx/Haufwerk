@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using JetBrains.Annotations;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Http.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Haufwerk.Client
 {
@@ -29,7 +29,8 @@ namespace Haufwerk.Client
 
         #endregion
 
-        public void Log(LogLevel logLevel, int eventId, object state, Exception exception, Func<object, Exception, string> formatter)
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             if (!IsEnabled(logLevel))
             {
@@ -64,11 +65,8 @@ namespace Haufwerk.Client
             return _haufwerk.Options.LogLevelsToLog.Any(x => x == logLevel);
         }
 
-
-        [CanBeNull]
-        public IDisposable BeginScopeImpl(object state)
+        public IDisposable BeginScope<TState>(TState state)
         {
-            // no support for scopes
             return null;
         }
     }

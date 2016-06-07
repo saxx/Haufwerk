@@ -1,20 +1,20 @@
-using System;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
-using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Haufwerk.Models;
 
 namespace Haufwerk.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20160408092148_Initial")]
+    [Migration("20160607071118_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
+                .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Haufwerk.Models.Issue", b =>
@@ -39,6 +39,8 @@ namespace Haufwerk.Migrations
                     b.Property<string>("User");
 
                     b.HasKey("Id");
+
+                    b.ToTable("Issues");
                 });
         }
     }

@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Haufwerk.Models;
 using Haufwerk.ViewModels.Home;
 using JetBrains.Annotations;
-using Microsoft.AspNet.Mvc;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Haufwerk.Controllers
 {

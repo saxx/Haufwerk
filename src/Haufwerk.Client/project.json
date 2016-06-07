@@ -1,31 +1,21 @@
 {
-  "version": "0.0.14",
-  "title": "Haufwerk Client",
-  "description": "Client library to post errors/exceptions to an Haufwerk instance. See https://github.com/saxx/haufwerk for more information about Haufwerk.",
-  "authors": [ "Hannes 'saxx' Sachsenhofer" ],
-  "tags": [ "haufwerk", "logging", "exception" ],
-  "projectUrl": "https://github.com/saxx/Haufwerk",
-  "licenseUrl": "",
-  "iconUrl": "https://raw.githubusercontent.com/saxx/Haufwerk/master/src/Haufwerk/wwwroot/apple-icon.png",
-  "summary": "",
-  "copyright": "",
+  "version": "1.0.0-*",
 
   "dependencies": {
-    "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
-    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
-    "System.Net.Http": "4.0.0"
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0-rc2-final",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc2-final",
+    "NETStandard.Library": "1.5.0-rc2-24027"
   },
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
+    "netstandard1.5": {
+      "imports": "dnxcore50",
       "dependencies": {
-        "System.Diagnostics.StackTrace": "4.0.0-beta-23109",
-        "System.Runtime": "4.0.21-beta-23516"
+        "System.Diagnostics.StackTrace": "4.0.1-rc2-24027"
       }
-    }
+    },
+    "net452": { }
   }
 }

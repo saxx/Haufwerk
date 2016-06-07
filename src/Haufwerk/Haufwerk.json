@@ -9,5 +9,8 @@
   },
   "ApplicationInsights": {
     "InstrumentationKey": "487952a9-b603-495a-93f0-ceb29365dda4"
+  },
+  "Database": {
+    "ConnectionString": "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=Haufwerk; Integrated Security=True; MultipleActiveResultSets=True;"
   }
 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Haufwerk.Models;
 using Haufwerk.ViewModels.Home;
 using JetBrains.Annotations;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Haufwerk
 {
