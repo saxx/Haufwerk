@@ -13,6 +13,8 @@ namespace Haufwerk
     {
         public Startup(IHostingEnvironment env)
         {
+            isDevEnvironment = env.IsDevelopment();
+
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("Haufwerk.json")
                 .AddEnvironmentVariables("Haufwerk:");
@@ -24,16 +26,29 @@ namespace Haufwerk
             Configuration = builder.Build();
         }
 
+        private bool isDevEnvironment = false;
         public IConfigurationRoot Configuration { get; }
 
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddHaufwerk(new HaufwerkOptions("Haufwerk", "http://localhost:5000")
+
+            if (isDevEnvironment)
             {
-                LogLocalRequests = true
-            });
+                services.AddHaufwerk(new HaufwerkOptions("Haufwerk", "http://localhost:5000")
+                {
+                    LogLocalRequests = true
+                });
+            }
+            else
+            {
+                services.AddHaufwerk(new HaufwerkOptions("Haufwerk", "https://haufwerk.sachsenhofer.com")
+                {
+                    LogLocalRequests = true
+                });
+            }
+
             services.AddMvc();
             services.AddDbContext<Db>(options =>
             {
