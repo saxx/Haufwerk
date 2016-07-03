@@ -13,7 +13,7 @@ namespace Haufwerk
     {
         public Startup(IHostingEnvironment env)
         {
-            isDevEnvironment = env.IsDevelopment();
+            _isDevEnvironment = env.IsDevelopment();
 
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("Haufwerk.json")
@@ -21,12 +21,12 @@ namespace Haufwerk
             if (env.IsDevelopment())
             {
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
+                builder.AddApplicationInsightsSettings(true);
             }
             Configuration = builder.Build();
         }
 
-        private bool isDevEnvironment = false;
+        private readonly bool _isDevEnvironment = false;
         public IConfigurationRoot Configuration { get; }
 
 
@@ -34,7 +34,7 @@ namespace Haufwerk
         {
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            if (isDevEnvironment)
+            if (_isDevEnvironment)
             {
                 services.AddHaufwerk(new HaufwerkOptions("Haufwerk", "http://localhost:5000")
                 {
