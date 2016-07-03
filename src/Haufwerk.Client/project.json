@@ -1,5 +1,5 @@
 {
-  "version": "0.0.18",
+  "version": "0.0.19",
   "title": "Haufwerk Client",
   "description": "Client library to post errors/exceptions to an Haufwerk instance. See https://github.com/saxx/haufwerk for more information about Haufwerk.",
   "authors": [ "Hannes 'saxx' Sachsenhofer" ],
@@ -14,7 +14,7 @@
   },
 
   "dependencies": {
-    "AsyncFriendlyStackTrace": "1.3.0",
+    "AsyncFriendlyStackTrace": "1.4.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
