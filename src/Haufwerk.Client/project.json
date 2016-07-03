@@ -1,5 +1,5 @@
 {
-  "version": "0.0.17",
+  "version": "0.0.18",
   "title": "Haufwerk Client",
   "description": "Client library to post errors/exceptions to an Haufwerk instance. See https://github.com/saxx/haufwerk for more information about Haufwerk.",
   "authors": [ "Hannes 'saxx' Sachsenhofer" ],
@@ -25,6 +25,7 @@
   "frameworks": {
     "netstandard1.6": {
       "imports": "dnxcore50"
-    }
+    },
+    "net452": {}
   }
 }
