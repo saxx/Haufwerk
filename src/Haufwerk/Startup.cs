@@ -71,10 +71,7 @@ namespace Haufwerk
                 .Database
                 .Migrate();
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                ServeUnknownFileTypes = true
-            });
+            app.UseStaticFiles(new StaticFileOptions());
 
             app.UseMvc(routes =>
             {
